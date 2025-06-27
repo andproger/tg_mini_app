@@ -18,8 +18,9 @@
     <script>
       const tg = window.Telegram.WebApp;
       tg.ready();
+      const start_param = tg.initDataUnsafe.start_param;
       document.getElementById('username').innerText =
-        "User: " + (tg.initDataUnsafe?.user?.username || "unknown");
+        "User: " + (tg.initDataUnsafe?.user?.username || "unknown") +", Start Param: " + start_param;
     </script>
   </body>
 </html>
