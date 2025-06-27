@@ -15,12 +15,30 @@
   <body>
     <h1>Hello from Telegram Mini App 👋</h1>
     <p id="username"></p>
+    <button id="buyStars">Купить звёзды</button>
     <script>
       const tg = window.Telegram.WebApp;
       tg.ready();
       const start_param = tg.initDataUnsafe.start_param;
       document.getElementById('username').innerText =
         "User: " + (tg.initDataUnsafe?.user?.username || "unknown") +", Start Param: " + start_param;
+
+      document.getElementById('buyStars').addEventListener('click', () => {
+      if (!tg.requestStars) {
+        alert("requestStars не поддерживается в этом окружении.");
+        return;
+      }
+      tg.requestStars({
+        onSuccess: (result) => {
+          console.log('Успех!', result);
+          alert('Покупка звёзд успешна!');
+        },
+        onError: (error) => {
+          console.error('Ошибка покупки:', error);
+          alert('Ошибка покупки: ' + JSON.stringify(error));
+        }
+      });
+    });
     </script>
   </body>
 </html>
